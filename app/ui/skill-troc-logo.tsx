@@ -1,4 +1,4 @@
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
+// import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { lusitana } from "@/app/ui/fonts";
 import Image from 'next/image';
 import logo from '@/public/skill-troc-logo.png';
