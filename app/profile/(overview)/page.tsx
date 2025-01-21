@@ -1,8 +1,9 @@
-import CardWrapper from "@/app/ui/dashboard/cards";
-import RevenueChart from "@/app/ui/dashboard/revenue-chart";
-import LatestInvoices from "@/app/ui/dashboard/latest-invoices";
+import CardWrapper from "@/app/ui/profile/cards";
+import RevenueChart from "@/app/ui/profile/revenue-chart";
+import LatestInvoices from "@/app/ui/profile/latest-invoices";
 import { lusitana } from "@/app/ui/fonts";
 // import { fetchCardData } from "@/app/lib/data";
+import { CreateProfile } from "@/app/ui/invoices/buttons";
 import { Suspense } from "react";
 import {
   RevenueChartSkeleton,
@@ -20,8 +21,11 @@ export default async function Page() {
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
+        My profile
       </h1>
+      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+        <CreateProfile />
+      </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Suspense fallback={<CardsSkeleton />}>
           <CardWrapper />

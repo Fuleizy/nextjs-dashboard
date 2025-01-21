@@ -1,10 +1,16 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
-// https://nextjs.org/learn/dashboard-app/fetching-data
+// https://nextjs.org/learn/profile-app/fetching-data
 const users = [
   {
     id: "410544b2-4001-4271-9855-fec4b6a6442a",
-    name: "User",
-    email: "user@nextmail.com",
+    name: "Fulei",
+    email: "fuleizy@gmail.com",
+    password: "123456",
+  },
+  {
+    id: "35c1a161-4972-4fae-a594-79c4b743375f",
+    name: "Ouijdane",
+    email: "qouijdane@gmail.com",
     password: "123456",
   },
 ];
