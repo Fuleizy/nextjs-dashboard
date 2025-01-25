@@ -219,6 +219,28 @@ export async function fetchCustomers() {
   }
 }
 
+export async function fetchSkills() {
+  const client = await createClient();
+  await client.connect();
+  try {
+    const data = await client.sql<CustomerField>`
+      SELECT
+        id,
+        name
+      FROM skills
+      ORDER BY name ASC
+    `;
+
+    const skills = data.rows;
+    return skills;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch all skills.");
+  } finally {
+    client.end();
+  }
+}
+
 export async function fetchFilteredCustomers(query: string) {
   const client = await createClient();
   await client.connect();
