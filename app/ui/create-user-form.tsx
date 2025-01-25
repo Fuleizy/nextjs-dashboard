@@ -1,11 +1,11 @@
 'use client';
 
-import { CustomerField, SkillField } from "@/app/lib/definitions";
+import { SkillField } from "@/app/lib/definitions";
 import Link from "next/link";
 import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
+  // CheckIcon,
+  // ClockIcon,
+  // CurrencyDollarIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "@/app/ui/button";

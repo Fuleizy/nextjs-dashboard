@@ -1,9 +1,8 @@
 import Form from "@/app/ui/create-user-form";
 import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
-import { fetchCustomers, fetchSkills } from "@/app/lib/data";
+import { fetchSkills } from "@/app/lib/data";
 
 export default async function Page() {
-  const customers = await fetchCustomers();
   const skills = await fetchSkills();
 
   return (
