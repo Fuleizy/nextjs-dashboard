@@ -1,28 +1,30 @@
 
 import { notFound } from 'next/navigation';
-import { createClient } from "@vercel/postgres";
-import type { User } from '@/app/lib/definitions';
+// import { createClient } from "@vercel/postgres";
+// import type { User } from '@/app/lib/definitions';
+import { getUser } from '@/app/lib/actions';
 import { Suspense } from "react";
 import {
     CardsSkeleton,
 } from "@/app/ui/skeletons";
 import { lusitana } from "@/app/ui/fonts";
+import { CreateProfile } from "@/app/ui/invoices/buttons";
 
-async function getUser(email: string): Promise<User | undefined> {
-    console.log('getUser:', email);
-    const client = await createClient();
-    await client.connect();
+// async function getUser(email: string): Promise<User | undefined> {
+//     console.log('getUser:', email);
+//     const client = await createClient();
+//     await client.connect();
 
-    try {
-        const user = await client.sql<User>`SELECT * FROM users WHERE email=${email}`;
-        return user.rows[0];
-    } catch (error) {
-        console.error('Failed to fetch user:', error);
-        throw new Error('Failed to fetch user.');
-    } finally {
-        client.end();
-    }
-}
+//     try {
+//         const user = await client.sql<User>`SELECT * FROM users WHERE email=${email}`;
+//         return user.rows[0];
+//     } catch (error) {
+//         console.error('Failed to fetch user:', error);
+//         throw new Error('Failed to fetch user.');
+//     } finally {
+//         client.end();
+//     }
+// }
 
 export default async function Page(props: { params: Promise<{ userId: string }> }) {
     const params = await props.params;
@@ -45,11 +47,15 @@ export default async function Page(props: { params: Promise<{ userId: string }> 
             <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
                 User Profile
             </h1>
+            <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+                <CreateProfile id={id} />
+            </div>
             <div className="bg-white shadow-md rounded-lg p-6">
                 <p className="text-lg font-semibold">User ID: <span className="font-normal">{user.id}</span></p>
                 <p className="text-lg font-semibold">Name: <span className="font-normal">{user.name}</span></p>
                 <p className="text-lg font-semibold">Email: <span className="font-normal">{user.email}</span></p>
             </div>
+
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
                 {/* Add any additional profile components here */}
             </div>

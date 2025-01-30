@@ -11,8 +11,10 @@ import {
 import { Button } from "@/app/ui/button";
 import { createUser, UserState } from "@/app/lib/actions";
 import { useActionState } from 'react';
+import type { User } from '@/app/lib/definitions';
+import Skill from "@/app/ui/profile/skills";
 
-export default function Form({ skills }: { skills: SkillField[] }) {
+export default function Form({ skills, user }: { skills: SkillField[], user: User | undefined }) {
   const initialState: UserState = { message: null, errors: {} };
   const [state, formAction] = useActionState(createUser, initialState);
   // console.log(state);
@@ -22,7 +24,6 @@ export default function Form({ skills }: { skills: SkillField[] }) {
         className="rounded-md bg-gray-50 p-4 md:p-6"
         aria-describedby="form-error"
       >
-
         {/* User name */}
         <div className="mb-4">
           <label htmlFor="username" className="mb-2 block text-sm font-medium">
@@ -35,6 +36,8 @@ export default function Form({ skills }: { skills: SkillField[] }) {
                 name="username"
                 type="text"
                 placeholder="Enter your username"
+                defaultValue={user?.name} // Prefill with username
+                readOnly
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="username-error"
               />
@@ -79,81 +82,6 @@ export default function Form({ skills }: { skills: SkillField[] }) {
           </div>
         </div>
 
-        {/* Skills */}
-        <div className="mb-4 flex space-x-4">
-
-          <div className="w-3/4">
-            <label htmlFor="skill" className="mb-2 block text-sm font-medium">
-              Skill 1
-            </label>
-            <div className="relative">
-              <select
-                id="skill"
-                name="skillId"
-                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                defaultValue=""
-                aria-describedby="skill-error"
-              >
-                <option value="" disabled>
-                  Select a skill
-                </option>
-                {skills.map((skill) => (
-                  <option key={skill.id} value={skill.id}>
-                    {skill.name}
-                  </option>
-                ))}
-              </select>
-              <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-            </div>
-            <div id="skill-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.skillId &&
-                state.errors.skillId.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-
-          <div className="w-1/4">
-            <label htmlFor="level" className="mb-2 block text-sm font-medium">
-              Level
-            </label>
-            <div className="relative">
-              <select
-                id="level"
-                name="level"
-                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-1 text-sm outline-2 placeholder:text-gray-500"
-                defaultValue=""
-                aria-describedby="level-error"
-              >
-                <option value="" disabled>
-                  Select a level
-                </option>
-                <option value="Beginner">
-                  Beginner
-                </option>
-                <option value="Intermediate">
-                  Intermediate
-                </option>
-                <option value="Expert">
-                  Expert
-                </option>
-
-              </select>
-
-            </div>
-            <div id="level-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.level &&
-                state.errors.level.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-
-        </div>
 
         {/* Customer Name */}
         {/* <div className="mb-4">
@@ -276,15 +204,111 @@ export default function Form({ skills }: { skills: SkillField[] }) {
         </div> */}
 
       </div>
+      <div
+        className="mt-4 rounded-md bg-gray-50 p-4 md:p-6"
+        aria-describedby="form-error"
+      >
+        <h4 className="mb-4 text-lg font-medium">Skills I want to learn</h4>
+
+        {/* Start Skill */}
+        {/* <div className="mb-4 flex space-x-4">       
+          <div className="w-3/4">
+            <label htmlFor="skill" className="mb-2 block text-sm font-medium">
+              Skill
+            </label>
+            <div className="relative">
+              <select
+                id="skill"
+                name="skillId"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue=""
+                aria-describedby="skill-error"
+              >
+                <option value="" disabled>
+                  Select a skill
+                </option>
+                {skills.map((skill) => (
+                  <option key={skill.id} value={skill.id}>
+                    {skill.name}
+                  </option>
+                ))}
+              </select>
+              <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+            </div>
+            <div id="skill-error" aria-live="polite" aria-atomic="true">
+              {state.errors?.skillId &&
+                state.errors.skillId.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))}
+            </div>
+          </div>
+
+          <div className="w-1/4">
+            <label htmlFor="level" className="mb-2 block text-sm font-medium">
+              Level
+            </label>
+            <div className="relative">
+              <select
+                id="level"
+                name="level"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-1 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue=""
+                aria-describedby="level-error"
+              >
+                <option value="" disabled>
+                  Select a level
+                </option>
+                <option value="Beginner">
+                  Beginner
+                </option>
+                <option value="Intermediate">
+                  Intermediate
+                </option>
+                <option value="Expert">
+                  Expert
+                </option>
+
+              </select>
+
+            </div>
+            <div id="level-error" aria-live="polite" aria-atomic="true">
+              {state.errors?.level &&
+                state.errors.level.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))}
+            </div>
+          </div>
+        </div> */}
+        {/* End Skill */}
+
+        <Skill skills={skills} state={state} />
+        <Skill skills={skills} state={state} />
+        <Skill skills={skills} state={state} />
+      </div>
+
+      <div
+        className="mt-4 rounded-md bg-gray-50 p-4 md:p-6"
+        aria-describedby="form-error"
+      >
+        <h4 className="mb-4 text-lg font-medium">Skills I want to teach</h4>
+        <Skill skills={skills} state={state} />
+        <Skill skills={skills} state={state} />
+        <Skill skills={skills} state={state} />
+      </div>
+
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/profile/invoices"
+          href={`/profile/${user?.email}`} // Redirect to user profile
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancel
         </Link>
         <Button type="submit">Save</Button>
       </div>
-    </form>
+    </form >
   );
 }

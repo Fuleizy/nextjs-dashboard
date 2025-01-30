@@ -10,7 +10,7 @@ import { AuthError } from "next-auth";
 import { db } from '@vercel/postgres';
 import { users } from '../lib/placeholder-data';
 import { v4 as uuidv4 } from 'uuid';
-// import { usePathname } from 'next/navigation'
+import type { User } from '@/app/lib/definitions';
 
 export async function authenticate(
   prevState: string | undefined,
@@ -476,4 +476,21 @@ export async function deleteInvoice(id: string) {
   }
 
   revalidatePath("/profile/invoices");
+}
+
+
+export async function getUser(email: string): Promise<User | undefined> {
+  console.log('getUser:', email);
+  const client = await createClient();
+  await client.connect();
+
+  try {
+    const user = await client.sql<User>`SELECT * FROM users WHERE email=${email}`;
+    return user.rows[0];
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw new Error('Failed to fetch user.');
+  } finally {
+    client.end();
+  }
 }
