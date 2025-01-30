@@ -1,9 +1,9 @@
-import Form from "@/app/ui/create-user-form";
+// import Form from "@/app/ui/create-user-form";
 import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
-import { fetchSkills } from "@/app/lib/data";
+// import { fetchSkills } from "@/app/lib/data";
 
 export default async function Page() {
-  const skills = await fetchSkills();
+  // const skills = await fetchSkills();
 
   return (
     <main>
@@ -17,7 +17,7 @@ export default async function Page() {
           },
         ]}
       />
-      <Form skills={skills} />
+      {/* <Form skills={skills} /> */}
     </main>
   );
 }

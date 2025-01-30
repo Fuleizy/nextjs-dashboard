@@ -9,7 +9,7 @@ export default async function Page(props: { params: Promise<{ userId: string }> 
   const id = params.userId;
   const decodedUserId = decodeURIComponent(id);
   const user = await getUser(decodedUserId);
-  const username = user?.name ? user.name : "unknown";
+  // const username = user?.name ? user.name : "unknown";
 
   return (
     <main>

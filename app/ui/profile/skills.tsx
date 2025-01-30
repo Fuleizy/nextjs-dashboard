@@ -5,8 +5,9 @@ import {
     // CurrencyDollarIcon,
     UserCircleIcon,
 } from "@heroicons/react/24/outline";
+import { UserState } from "@/app/lib/actions";
 
-export default function Skill({ skills, state }: { skills: SkillField[], state: any }) {
+export default function Skill({ skills, state }: { skills: SkillField[], state: UserState }) {
     return (
         <div className="mb-4 flex space-x-4">
 
