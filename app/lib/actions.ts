@@ -162,12 +162,14 @@ export async function signUp(
 
 export async function signUpButton() {
   console.log("Test button clicked");
+  revalidatePath('/signup');
   redirect('/signup');
 }
 
 
 export async function cancelSignUpButton() {
   console.log("Test button clicked");
+  revalidatePath('/login');
   redirect('/login');
 }
 
