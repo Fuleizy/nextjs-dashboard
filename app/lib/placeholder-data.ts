@@ -13,6 +13,18 @@ const users = [
     email: "qouijdane@gmail.com",
     password: "123456",
   },
+  {
+    id: "81cd2abd-4f41-4188-99f4-f80e4d422a51",
+    name: "Test User",
+    email: "test@gmail.com",
+    password: "123456",
+  },
+  {
+    id: "3657238d-87f3-4c0c-925f-633611437edf",
+    name: "Test User2",
+    email: "test2@gmail.com",
+    password: "123456",
+  },
 ];
 
 const customers = [
