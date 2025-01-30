@@ -26,6 +26,11 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
+            const isOnSignupPage = nextUrl.pathname === '/signup';
+
+            if (isOnSignupPage) {
+                return true; // Allow access to /signup page even if not logged in
+            }
             if (isLoggedIn) {
                 const email = auth?.user?.email;
                 if (!email) {
